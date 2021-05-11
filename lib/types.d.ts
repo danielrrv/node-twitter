@@ -11,7 +11,7 @@ export declare interface IRoute {
 }
 export declare interface IModel {
 
-	find(id: string): Promise<QueryResults>;
+	find(id?: string): Promise<QueryResults>;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;

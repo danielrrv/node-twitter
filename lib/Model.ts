@@ -5,8 +5,8 @@ import { IModel, Constructor } from "./types";
 
 
 
-export default class Manager {
-	public static Get(Instance: Constructor<IModel>): IModel {
+export default class Manager<T> {
+	public static Get<T>(Instance: Constructor<T>): T {
 		return new Instance();
 	}
 	protected primaryKey = "id";

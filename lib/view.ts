@@ -10,6 +10,7 @@ const view = (response: Response, file: string, options: any): any => {
 		const stringHtml = fs.readFileSync(path.resolve(path.join(__dirname, "..", "templates", file)), "utf-8");
 		response.write(Handlebars.compile(stringHtml)(options));
 		response.statusCode = 200;
+		response.setHeader('Content-Type', 'text/html');
 		response.end();
 	} catch (error) {
 		throw new Error("No view found. Place views on Templates folder.");

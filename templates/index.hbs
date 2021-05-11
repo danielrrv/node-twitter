@@ -1,11 +1,43 @@
 <html>
+
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Twitter</title>
 </head>
 
 <body>
-  <h1>{{name}}</h1>
-  <h1>{{id}}</h1>
+  <div class="container">
+    <div style="display:flex;flex-wrap: wrap;">
+      {{#each users}}
+      <div
+        style="display:flex;border-radius:5px;width:30%;height:300px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; margin:5px;padding:4px;">
+        <div style="width: 40%;">
+          
+          <img height="100" width="100" src="{{image_url}}" alt="{{title}}">
+          <div>
+            <p>Ti1</p>
+            <p>t2</p>
+            <p>t3</p>
+          </div>
+        </div>
+        <div style="width:60%;">
+          
+          <div>
+            <h3>{{title}}</h3>
+          </div>
+          <div>
+            <p>{{description}}</p>
+          </div>
+
+        </div>
+
+
+      </div>
+      {{/each}}
+    </div>
+  </div>
 </body>
 
 </html>

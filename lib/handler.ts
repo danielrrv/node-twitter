@@ -9,7 +9,11 @@ import View from "./view"
 
 export const index = async (request: Request, response: Response, params?: Params): Promise<void> => {
 	try {
-		return View(response, "index.hbs", { id: 2, name: "Daniel" });
+		const userRepository = Manager.Get<User>(User);
+		const users = await userRepository.find();
+		const tweets = await userRepository.tweets();
+		console.log(tweets);
+		return View(response, "index.hbs", {users});
 	} catch (error) {
 		console.error(error);
 		error404(request, response);

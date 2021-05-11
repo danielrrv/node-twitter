@@ -1,0 +1,11 @@
+repository:
+  createdAt: '2021-05-11T02:36:06-05:00'
+  encryptionConfiguration:
+    encryptionType: AES256
+  imageScanningConfiguration:
+    scanOnPush: false
+  imageTagMutability: MUTABLE
+  registryId: '363420226908'
+  repositoryArn: arn:aws:ecr:us-east-2:363420226908:repository/node-zemoga
+  repositoryName: node-zemoga
+  repositoryUri: 363420226908.dkr.ecr.us-east-2.amazonaws.com/node-zemoga
