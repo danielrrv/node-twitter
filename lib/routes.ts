@@ -4,7 +4,6 @@ const routes: IRoute[] = [
 	{
 		handler: index,
 		path: "/",
-
 	},
 	{
 		handler: show,

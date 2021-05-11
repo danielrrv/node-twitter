@@ -7,11 +7,15 @@ const server = http.createServer(app);
 const request = supertest.agent(server) 
 
 describe('Endpoint "/"', () => {
-    fit('Gets redirect to /callback', async done => {
+    it('Gets index on /', async done => {
         const response = await request.get('/');
-        expect(response.status).toBe(200)//redirect
-        //expect(response.header.location).toMatch(/(client_id=\d{3,})|(redirect_uri=\\https)|(state)|(\/callback)/g);
+        expect(response.status).toBe(200)
+        expect(response.headers['Content-Type']).toBe('text/html')
+        done();
+    });
+    it('Throws 404 on not registered route', async done => {
+        const response = await request.get('/je-ne-exist-pas');
+        expect(response.status).toBe(404)
         done();
     })
-   
 })

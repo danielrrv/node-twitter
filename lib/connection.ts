@@ -7,7 +7,11 @@ const pool = mysql.createPool({
 	password: process.env.MYSQL_PASSWORD,
 	database: process.env.MYSQL_DATABASE
 });
-
+/**
+ * Execute queries. Uses pool connections. Default 10.
+ * @async
+ * @param {string} query -Provide a valid query. Implementation trusts in you.
+*/
 const statement = async (query: string): Promise<Results[]> => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection(async (err, connection) => {

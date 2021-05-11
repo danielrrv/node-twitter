@@ -7,43 +7,55 @@ const https = require('https');
 interface IUser extends IModel{
 	tweets(): void;
 }
-
+/**
+ * Class represents User
+ * @extends Manager
+ * @classdesc Model points to portfolio table
+ */
 export class User extends Manager<IUser> {
-	public primaryKey = "idportfolio";
-	public tableName = "portfolio";
-
-	constructor() {
+	/*Primary key of the model*/
+	protected primaryKey = "idportfolio";
+	/*Declare the table that model points to*/
+	protected tableName = "portfolio";
+	 /** @constructs */
+	public constructor() {
 		super();
 	}
-
-	public static Tweets(userName):any{
+	/**
+	 * Returns model tweets.
+	 * @param {string} userName twitter_username.
+	 * @returns Promise<any>
+	*/
+	public static Tweets(userName:string):Promise<any>{
+		/*API V2*/
 		const options = {
 			hostname: "api.twitter.com",
 			port: 443,
 			path:  '/2/tweets/search/recent?query=from:'+ userName,
 			method: 'GET',
 			headers:{
+				/*Basic Bearer Token*/
 				Authorization:`Bearer ${process.env.TWITTER_BEARER_TOKEN}`
 			}
-		  }
-		  return new Promise((resolve, reject)=>{
+		}
+		return new Promise((resolve)=>{
 			const req = https.request(options, res => {
-				// console.log(`statusCode: ${res.statusCode}`)
-				
 				res.on('data', stream => {
 					resolve(JSON.parse(stream).data);
+					/*Notifies remote server to close the connection*/
 					req.end()
 				})
-			  })
-			  
-			  req.on('error', error => {
+			})
+			req.on('error', error => {
+				/*Notifies remote server to close connection right away error occurs*/
+				
+				/*TODO: Moves console.log to log files of the app*/
 				console.error(error)
+				/*Set tweets to null from the promise*/
 				resolve(null);
-			  })
-			  req.end()
-		  })
-	
-
+			})
+			req.end()
+		})
 	}
 }
 
