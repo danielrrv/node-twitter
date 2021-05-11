@@ -16,6 +16,7 @@ export declare interface IModel {
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
+export type Results = any; 
 export declare interface QueryResults {
 	results: any,
 	fields: any,

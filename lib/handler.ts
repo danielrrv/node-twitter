@@ -2,7 +2,7 @@
 import { Response, Request } from "express";
 import { User } from "./entities";
 import Manager from "./Model";
-import { Params } from "./types";
+import { Params, Results } from "./types";
 import View from "./view"
 
 
@@ -10,9 +10,13 @@ import View from "./view"
 export const index = async (request: Request, response: Response, params?: Params): Promise<void> => {
 	try {
 		const userRepository = Manager.Get<User>(User);
-		const users = await userRepository.find();
-		const tweets = await userRepository.tweets();
-		console.log(tweets);
+		const rawUser = await userRepository.find();
+		const users = [];
+		for (let user of rawUser){
+			 const tweets = await User.Tweets(user.twitter_user_name)
+			 users.push({...user, tweets})
+		}
+		console.log(users[15]);
 		return View(response, "index.hbs", {users});
 	} catch (error) {
 		console.error(error);

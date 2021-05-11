@@ -1,6 +1,6 @@
 
 import statement from "./connection"
-import { QueryResults } from "./types";
+import { QueryResults, Results } from "./types";
 import { IModel, Constructor } from "./types";
 
 
@@ -12,7 +12,7 @@ export default class Manager<T> {
 	protected primaryKey = "id";
 	protected tableName = "myTable";
 
-	public async find(id?: string): Promise<QueryResults> {
+	public async find(id?: string): Promise<Results[]> {
 		if (!id) {
 			return await statement("select * from " + this.tableName + ";");
 		}

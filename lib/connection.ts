@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-import { QueryResults } from "./types";
+import { QueryResults, Results } from "./types";
 const pool = mysql.createPool({
 	connectionLimit: process.env.MYSQL_POOL,
 	host: process.env.MYSQL_HOST,
@@ -8,7 +8,7 @@ const pool = mysql.createPool({
 	database: process.env.MYSQL_DATABASE
 });
 
-const statement = async (query: string): Promise<QueryResults> => {
+const statement = async (query: string): Promise<Results[]> => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection(async (err, connection) => {
 			if (err) reject(err); // not connected!
