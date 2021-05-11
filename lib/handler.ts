@@ -1,12 +1,34 @@
-import { Response, Request } from "express";
-import statement from "./connection"
-export const index = (request: Request, response: Response): void => {
 
-	const { results, fields, error } = statement("select * from portfolio limit 5;");
-	console.log(results, fields, error);
-	response.statusCode = 200;
-	response.write("Hello world");
-	response.end();
+import { Response, Request } from "express";
+import { User } from "./entities";
+import Manager from "./Model";
+import { Params } from "./types";
+import View from "./view"
+
+
+
+export const index = async (request: Request, response: Response, params?: Params): Promise<void> => {
+	try {
+		return View(response, "index.hbs", { id: 2, name: "Daniel" });
+	} catch (error) {
+		console.error(error);
+		error404(request, response);
+	}
+	return;
+};
+
+export const show = async (request: Request, response: Response, params?: Params): Promise<void> => {
+	try {
+		const userRepository = Manager.Get(User);
+		const user = await userRepository.find(params.id);
+		response.statusCode = 200;
+		response.write(JSON.stringify(user));
+		response.end();
+	} catch (error) {
+		console.log(error);
+		error404(request, response);
+	}
+
 	return;
 };
 

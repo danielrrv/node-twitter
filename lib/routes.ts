@@ -1,9 +1,14 @@
-import { index, error404 } from "./handler";
+import { index, error404, show } from "./handler";
 import { IRoute } from "./types";
 const routes: IRoute[] = [
 	{
 		handler: index,
 		path: "/",
+
+	},
+	{
+		handler: show,
+		path: "/users",
 
 	},
 	{
