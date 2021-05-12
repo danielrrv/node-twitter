@@ -1,5 +1,6 @@
 const app = require('../dist/server');
-const http = require('http');	
+const http = require('http');
+const helpers = require('../dist/helpers')
 const supertest = require('supertest')
 
 const server = http.createServer(app);
@@ -16,6 +17,20 @@ describe('Endpoint "/"', () => {
     it('Throws 404 on not registered route', async done => {
         const response = await request.get('/je-ne-exist-pas');
         expect(response.status).toBe(404)
+        done();
+    })
+})
+
+describe('Helpers', ()=>{
+    it('parseParams()', done=>{
+        routeUrl ="/api/endpoint/:param1/entity/:param2";
+        requestUrl="/api/endpoint/1/entity/delete/soft";
+        const params= helpers.parseParams(routeUrl, requestUrl);
+        console.log(params);
+        expect(Object.keys(params)[0]).toBe('param1');
+        expect(Object.keys(params)[1]).toBe('param2');
+        expect(Object.values(params)[0]).toBe("1");
+        expect(Object.values(params)[1]).toBe('delete');
         done();
     })
 })

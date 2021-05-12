@@ -9,7 +9,8 @@ type HandlerFunc = (req: Request, res: Response, params?:Params) => Promise<Redi
 export declare interface IRoute {
 	path: string;
 	handler: HandlerFunc;
-	params?: Params
+	method:string;
+	
 }
 export declare interface IModel {
 	Find(id?: string): Promise<QueryResults>;
@@ -30,3 +31,13 @@ export declare interface QueryResults {
 export declare interface Params {
 	[key: string]: string;
 }
+
+
+
+// export declare interface INoSQL{
+// 	[key: string]: string;
+// }
+
+// export declare interface NoRelationalModel extends Record<string, string>{
+// 	Find(id?:number):NoRelationalModel
+// }

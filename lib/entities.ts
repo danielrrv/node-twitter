@@ -1,8 +1,8 @@
 
-import { urlencoded } from "express";
+
 import Manager from "./Model";
-import { IModel } from "./types";
-const needle = require('needle');
+import { dynamoClient } from "./connection";
+import { IModel} from "./types";
 const https = require('https');
 interface IUser extends IModel{
 	tweets(): void;
@@ -31,31 +31,87 @@ export class User extends Manager<IUser> {
 		const options = {
 			hostname: "api.twitter.com",
 			port: 443,
-			path:  '/2/tweets/search/recent?query=from:'+ userName,
-			method: 'GET',
+			path:  "/2/tweets/search/recent?query=from:"+ userName,
+			method: "GET",
 			headers:{
 				/*Basic Bearer Token*/
 				Authorization:`Bearer ${process.env.TWITTER_BEARER_TOKEN}`
 			}
 		}
-		return new Promise((resolve)=>{
-			const req = https.request(options, res => {
-				res.on('data', stream => {
+		return new Promise((resolve) => {
+			const req = https.request(options, (res) => {
+				res.on("data", stream => {
 					resolve(JSON.parse(stream).data);
 					/*Notifies remote server to close the connection*/
-					req.end()
+					req.end();
 				})
 			})
-			req.on('error', error => {
+			req.on("error", error => {
 				/*Notifies remote server to close connection right away error occurs*/
-				
 				/*TODO: Moves console.log to log files of the app*/
-				console.error(error)
+				console.error(error);
 				/*Set tweets to null from the promise*/
 				resolve(null);
 			})
-			req.end()
-		})
+			req.end();
+		});
 	}
 }
 
+export class Profile {
+
+	protected static document = process.env.DYNAMO_DB;
+	public name: string;
+	public description: string;
+	public title: string;;
+	public twitter_user_id?: string;
+	public experience_summary?: string;
+	public constructor(name: string, description:string, title:string){
+		this.name = name;
+		this.description = description;
+		this.title = title;	
+	}
+	public static All(){
+		return new Promise((resolve,reject)=>{
+			dynamoClient.scan({TableName: Profile.document},
+				(err, data)=>{
+				if(err) throw err;
+				else resolve(data);
+			});
+		})
+	}
+	public static Find(name: string){
+		return new Promise(
+			(resolve, reject) => {
+				dynamoClient.batchGetItem({tableName:Profile.document, Statement :[
+					{
+						Statement: name,
+					}
+				]
+			},
+			(err, data)=>{
+				if(err) throw err;
+				else resolve(data);
+			});
+		});
+	}
+	public save(){
+		return new Promise((resolve, reject)=>{
+			dynamoClient.putItem(
+				{
+					TableName:Profile.document,
+					Item:{
+						"name":{S:this.name},
+						"description":{S:this.description},
+						"title":{S:this.title},
+						"twitter_user_id":{S:this.twitter_user_id, NULL: true},
+						"experience_summary":{S:this.experience_summary, NULL: true}
+					}
+				},
+				(err, data)=>{
+					if(err)throw err;
+					resolve(data);
+			})
+		})
+	}
+}

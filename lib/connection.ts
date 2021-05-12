@@ -1,5 +1,8 @@
 const mysql = require('mysql');
 import { QueryResults, Results } from "./types";
+const AWS = require('aws-sdk');
+
+/*Implementation to mysql connections socket*/
 const pool = mysql.createPool({
 	connectionLimit: process.env.MYSQL_POOL,
 	host: process.env.MYSQL_HOST,
@@ -7,17 +10,27 @@ const pool = mysql.createPool({
 	password: process.env.MYSQL_PASSWORD,
 	database: process.env.MYSQL_DATABASE
 });
+/*Implementation to DynamoDB connections*/
+AWS.config.update({
+	region: "us-east-1",
+	accessKeyId:process.env.AWS_ACCESS_KEY_ID,
+	secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
+  })
+
+export const dynamoClient = new AWS.DynamoDB();
+
+
 /**
- * Execute queries. Uses pool connections. Default 10.
+ * Executes queries. Uses pool connections. Default 10.
  * @async
  * @param {string} query -Provide a valid query. Implementation trusts in you.
 */
-const statement = async (query: string): Promise<Results[]> => {
+export const statement = async (query: string): Promise<Results[]> => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection(async (err, connection) => {
 			if (err) reject(err); // not connected!
 			// Use the connection
-			connection.query(query, (error, results, fields) => {
+			connection.query(query, (error, results,_) => {
 				connection.release();
 				// Handle error after the release.
 				if (error) reject(error);
@@ -26,4 +39,3 @@ const statement = async (query: string): Promise<Results[]> => {
 		});
 	});
 }
-export default statement;

@@ -1,12 +1,10 @@
 
-import statement from "./connection"
+import {statement} from "./connection";
 import { QueryResults, Results } from "./types";
 import { IModel, Constructor } from "./types";
 
-
-
 export default class Manager<T> {
-	public static Get<T>(Instance: Constructor<T>): T {
+	public static Get<U>(Instance: Constructor<U>): U {
 		return new Instance();
 	}
 	protected primaryKey = "id";
@@ -15,7 +13,7 @@ export default class Manager<T> {
 	 * Finds a model instance by primaryKey. If not id returns all records
 	 * @async
 	 * @param {string?} id primaryKey
-	 * @return {Promise<Results[]>} 
+	 * @return {Promise<Results[]>}
 	*/
 	public async Find(id?: string): Promise<Results[]> {
 		if (!id) {
@@ -30,7 +28,7 @@ export default class Manager<T> {
 			throw new Error("Primary key should be integer");
 		}
 	}
-	public async Where(column: string, condition: string, filter: string):Promise<Results[]> {
+	public async Where(column: string, condition: string, filter: string): Promise<Results[]> {
 		/*TODO:Validates inputs. Prepare default responses.*/
 		return await statement("select * from " + this.tableName + " where " + column + condition + filter + ";")
 	}
