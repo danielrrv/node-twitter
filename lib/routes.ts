@@ -1,5 +1,5 @@
-import { index, error404, show } from "./handler";
-import { getAllProfile, putProfile, getProfile } from "./api";
+import { index, error404, show } from "./Controllers/handler";
+import { getAllProfile, putProfile, getProfile } from "./API/api";
 import { IRoute } from "./types";
 /**
  * Consider the following instruction  before declaring routes:

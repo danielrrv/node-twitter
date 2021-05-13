@@ -2,7 +2,7 @@
 import { Response, Request } from "express";
 import routes from "./routes";
 import { Params } from "./types";
-import { error404 } from "./handler";
+import { error404 } from "./Controllers/handler";
 const url = require('url');
 const helpers = require('../dist/helpers')
 

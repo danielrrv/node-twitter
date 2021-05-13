@@ -1,10 +1,18 @@
 
 
-import { Params, RedirectResponse, Results } from "./types";
+import { Params, RedirectResponse, Results } from "../types";
 import { Response, Request } from "express";
-import Profile from './Models/Profile';
-import {error404} from './handler';
+import Profile from '../Models/Profile';
+import {error404} from '../Controllers/handler';
 
+
+/**
+ * Gets all profiles available on dynamoDB
+ * @param {Request} request
+ * @param {Response} response
+ * @param {Params} params
+ * @returns {Promise<RedirectResponse>}
+*/
 export const getAllProfile = async(request: Request, response: Response, params?: Params): Promise<RedirectResponse> =>{
 	try {
 	const allProfiles = await Profile.All();
@@ -18,6 +26,13 @@ export const getAllProfile = async(request: Request, response: Response, params?
 	}
 }
 
+/**
+ * Gets single item from dynamoDB document.
+ * @param {Request} request
+ * @param {Response} response
+ * @param {Params} params
+ * @returns {Promise<RedirectResponse>}
+*/
 export const getProfile = async( request:Request, response:Response, params?:Params ): Promise<RedirectResponse> =>{
 	try {
 		if(params.hasOwnProperty("id")){
@@ -38,6 +53,13 @@ export const getProfile = async( request:Request, response:Response, params?:Par
 	}
 }
 
+/**
+ * Creates item on the DynamoDB's document
+ * @param {Request} request
+ * @param {Response} response
+ * @param {Params} params
+ * @returns {Promise<RedirectResponse>}
+*/
 export const putProfile = async (request: Request, response: Response, params?: Params): Promise<RedirectResponse> =>{
 	try {
 	const buffer = [];
@@ -48,6 +70,7 @@ export const putProfile = async (request: Request, response: Response, params?: 
 	request.on("end", async () => {
 		const body = JSON.parse(Buffer.concat(buffer).toString("utf-8"));
 		const profile = new Profile(body.name, body.description, body.title);
+		/*Implementation to save the model.*/
 		await profile.save();
 		response.statusCode = 200;
 		response.setHeader("Content-Type", "application/json;charset=utf-8");

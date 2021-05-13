@@ -1,5 +1,5 @@
 
-import { dynamoDBClient} from "../connection";
+import { dynamoDBClient} from "../DB/connection";
 
 
 export default class Profile {
@@ -20,7 +20,7 @@ export default class Profile {
 	}
 
 	public static async Find(name: string){
-		return await dynamoDBClient.get({TableName: Profile.document, key:{"name": name}}).promise()
+		return await dynamoDBClient.get({TableName: Profile.document, Key:{"name": name}}).promise()
 	}
 	public async save(){
 		const Item = {

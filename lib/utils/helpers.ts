@@ -1,5 +1,5 @@
 
-import {Params} from './types';
+import {Params} from '../types';
 
 /*Parse uri params based on delimiter*/
 const parseParams = (routeUrl: string , requestUrl: string, params: Params={})=> {
