@@ -24,13 +24,14 @@ const handle = async (req: Request, res: Response, params: Params={}, route = 0)
 		/*Implementation to parse params*/
 		Object.assign(params, helpers.parseParams(routes[route].path, req.url));
 		/*See you in future ticks->*/
-		return routes[route].handler(req, res, params);
+		return await routes[route].handler(req, res, params);
 	}
 	/*Case #2. Keep preaching for routes. */
 	if (routes.length - 1 > route) {
-		return handle(req, res, params, route + 1);
+		return  await handle(req, res, params, route + 1);
 	}
-	return  error404(req, res);
+	/*Implementation to default router behavior*/
+	return  await error404(req, res);
 };
 
 module.exports = handle;

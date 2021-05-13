@@ -32,9 +32,12 @@ const convertOnRegexUrl = (url)=>{
 			/*Implementation to extract  the param from the routeUlr declare on routes*/
 			let endRoute = current;
 			while((url[endRoute]  != "/") && (endRoute <= url.length) )endRoute++;
+			/*What it does: Replaces the param to regex of any character. (.+)matches any char.*/
 			url = url.slice(0, current) + ".+" +  url.slice(endRoute);
+			/*Keep moving!*/
 			return convertOnRegexUrl(url);
 	}else{
+		/*What it does: Replaces simple / for escape versions of them. Used as regex.*/
 		return url.slice(0, url.length).replace(new RegExp('\\/', 'g'), '\\/');
 	}
 }

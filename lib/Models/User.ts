@@ -5,7 +5,7 @@ const https = require('https');
 
 
 interface IUser extends IModel{
-	tweets(): void;
+	Tweets(): Promise<any>;
 }
 /**
  * Class represents User
