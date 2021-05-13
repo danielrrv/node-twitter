@@ -25,7 +25,6 @@ export const getProfile = async( request:Request, response:Response, params?:Par
 		response.write(JSON.stringify(params));
 		response.end();
 	} catch (error) {
-		
 	}
 }
 

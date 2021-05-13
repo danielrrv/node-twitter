@@ -5,13 +5,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 
-ENV PORT=9000
+ENV PORT=8080
 RUN npm install
 COPY . .
 RUN npm run build
 
 
-EXPOSE 9000
+EXPOSE 8080
 
 
-CMD [ "www" ]
+CMD [ "./www" ]
