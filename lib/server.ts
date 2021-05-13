@@ -4,7 +4,7 @@ import routes from "./routes";
 import { Params } from "./types";
 import { error404 } from "./Controllers/handler";
 const url = require('url');
-const helpers = require('../dist/helpers')
+const helpers = require('./utils/helpers')
 
 /**
  * Handles incoming requests and derives each to respective handler that matches the route.
@@ -24,14 +24,14 @@ const handle = async (req: Request, res: Response, params: Params={}, route = 0)
 		/*Implementation to parse params*/
 		Object.assign(params, helpers.parseParams(routes[route].path, req.url));
 		/*See you in future ticks->*/
-		return await routes[route].handler(req, res, params);
+		return routes[route].handler(req, res, params);
 	}
 	/*Case #2. Keep preaching for routes. */
 	if (routes.length - 1 > route) {
-		return  await handle(req, res, params, route + 1);
+		return handle(req, res, params, route + 1);
 	}
 	/*Implementation to default router behavior*/
-	return  await error404(req, res);
+	return  error404(req, res);
 };
 
 module.exports = handle;

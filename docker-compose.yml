@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   node-twitter:
+    image: "363420226908/beanstalk-node"
     build: .
     ports:
-      - "9000:9000"
+      - "80:9000"
