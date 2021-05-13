@@ -26,11 +26,17 @@ describe('Helpers', ()=>{
         routeUrl ="/api/endpoint/:param1/entity/:param2";
         requestUrl="/api/endpoint/1/entity/delete/soft";
         const params= helpers.parseParams(routeUrl, requestUrl);
-        console.log(params);
         expect(Object.keys(params)[0]).toBe('param1');
         expect(Object.keys(params)[1]).toBe('param2');
         expect(Object.values(params)[0]).toBe("1");
         expect(Object.values(params)[1]).toBe('delete');
+        done();
+    })
+    it('convertOnRegexUrl()', done=>{
+        url ="/api/endpoint/:param1/entity/:param2";
+        const parsedUrl= helpers.convertOnRegexUrl(url);
+        
+        expect(parsedUrl).toBe("\\/api\\/endpoint\\/.+\\/entity\\/.+");
         done();
     })
 })

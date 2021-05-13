@@ -12,7 +12,6 @@
         "curly":false,
         "member-ordering":false,
         "no-unused-variable":true,
-        "max-classes-per-file":false
     },
     "rulesDirectory": []
 }

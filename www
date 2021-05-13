@@ -6,7 +6,7 @@
 require('dotenv').config();
 const app = require('./dist/server');
 const http = require('http');
-const HOST = '0.0.0.0';
+const HOST = '127.0.0.1';
 
 
 
@@ -31,7 +31,7 @@ const server = http.createServer(app);
  */
 
 server.listen(PORT, () => {
-  console.log(`Running on http://${HOST}:${PORT}`)
+  console.log(`Server listening on http://${HOST}:${PORT}`)
 });
 server.on('error', onError);
 

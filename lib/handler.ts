@@ -1,7 +1,7 @@
 
 import { Response, Request } from "express";
-import { User } from "./entities";
-import Manager from "./Model";
+import  User from "./Models/User";
+import Manager from "./Models/Model";
 import { Params, RedirectResponse, Results } from "./types";
 import View from "./view";
 

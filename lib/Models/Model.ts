@@ -1,7 +1,7 @@
 
-import {statement} from "./connection";
-import { QueryResults, Results } from "./types";
-import { IModel, Constructor } from "./types";
+import {statement} from "../connection";
+import { QueryResults, Results } from "../types";
+import { IModel, Constructor } from "../types";
 
 export default class Manager<T> {
 	public static Get<U>(Instance: Constructor<U>): U {

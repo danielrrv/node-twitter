@@ -2,7 +2,7 @@
 
 import { Params, RedirectResponse, Results } from "./types";
 import { Response, Request } from "express";
-import { Profile} from './entities';
+import Profile from './Models/Profile';
 import {error404} from './handler';
 
 export const getAllProfile = async(request: Request, response: Response, params?: Params): Promise<RedirectResponse> =>{
@@ -20,11 +20,21 @@ export const getAllProfile = async(request: Request, response: Response, params?
 
 export const getProfile = async( request:Request, response:Response, params?:Params ): Promise<RedirectResponse> =>{
 	try {
-		console.log(params);
-		response.setHeader("Content-Type", "application/json");
-		response.write(JSON.stringify(params));
-		response.end();
+		if(params.hasOwnProperty("id")){
+			const profile= await Profile.Find(params.id);
+			response.setHeader("Content-Type", "application/json");
+			response.write(JSON.stringify(profile));
+			response.end();
+		}else{
+			throw new Error("No id property provided!");
+		}
+		
 	} catch (error) {
+		console.error(error);
+		response.statusCode = 404;/*JUST for development*/
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		response.write(JSON.stringify({error : error.message}));
+		response.end();
 	}
 }
 
