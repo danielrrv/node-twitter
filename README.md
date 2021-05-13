@@ -1,7 +1,7 @@
 # node-twitter
 
 
-Hello. This a small Nodejs application fine-grained implemented from the scratch.
+Hello. This a small Nodejs application fine-grained implementation from the scratch.
 
 # How to run.
 1. `npm install`
@@ -12,8 +12,9 @@ Hello. This a small Nodejs application fine-grained implemented from the scratch
 
 
 ## Docker.
-Option 1: Build the image and run the container.
-Option 2: Use Docker-compose to build and run the image.
+- Option 1: Build the image and run the container.
+
+- Option 2: Use Docker-compose to build and run the image.
 
 
 
