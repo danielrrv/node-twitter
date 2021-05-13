@@ -2,3 +2,7 @@ node_modules
 dist
 tslint.json
 README.md
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
+.gitignore

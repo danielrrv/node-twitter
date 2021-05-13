@@ -1,8 +1,15 @@
 
 import {Params} from '../types';
 
-/*Parse uri params based on delimiter*/
-const parseParams = (routeUrl: string , requestUrl: string, params: Params={})=> {
+
+/**
+ * Parse uri params based on delimiter
+ * @param {string} routeUrl The route defined on routes array. It contains the params required on the url
+ * @param {string} requestUrl The request's url. 
+ * @param {Params} params store object
+ * @return {Params}
+*/
+const parseParams = (routeUrl: string , requestUrl: string, params: Params={}): Params=> {
 	/*Delimiter, consider to pass it to  the args function*/
 	const delimiter = ":";
 	/*try to find  the position of the delimiter*/
@@ -23,7 +30,13 @@ const parseParams = (routeUrl: string , requestUrl: string, params: Params={})=>
 		return params;
 	}
 }
-const convertOnRegexUrl = (url)=>{
+
+/**
+ * Convert url into regular expression url that allows match routes better 
+ * @param {string} url uri url from the user
+ * @returns {RegExp|string} 
+*/
+const convertOnRegexUrl = (url: string):RegExp | string=>{
 		/*Delimiter, consider to pass it to  the args function*/
 		const delimiter = ":";
 		/*try to find  the position of the delimiter*/

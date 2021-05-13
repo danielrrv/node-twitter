@@ -16,7 +16,6 @@ AWS.config.update({
 	accessKeyId:process.env.AWS_ACCESS_KEY_ID,
 	secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
   })
-
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 export const dynamoDBClient = new AWS.DynamoDB.DocumentClient();
 

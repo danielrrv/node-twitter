@@ -10,6 +10,7 @@
   "scripts": {
     "start": "npm run build && node ./www",
     "build": "tsc",
+    "build:dev": "nodemon --watch 'lib/**/*.ts' --exec npm run build",
     "dev": "npm run build && nodemon ./www",
     "test": "npm run build && jest",
     "lint": "tslint -c tslint.json 'lib/**/*.ts'"
