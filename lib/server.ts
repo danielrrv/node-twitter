@@ -2,7 +2,7 @@
 import { Response, Request } from "express";
 import routes from "./routes";
 import { Params } from "./types";
-import { error404 } from "./Controllers/handler";
+import { error404 } from "../src/Controllers/handler";
 const url = require('url');
 const helpers = require('./utils/helpers')
 
@@ -14,7 +14,7 @@ const helpers = require('./utils/helpers')
 const handle = async (req: Request, res: Response, params: Params={}, route = 0) => {
 	
 	/*Case #1: Request's url matches with route and method at position  stated by route on routes array*/
-	if (new RegExp(helpers.convertOnRegexUrl(routes[route].path))
+	if (new RegExp(helpers.convertToRegexUrl(routes[route].path))
 		.test(url.parse(req.url, true).pathname) &&
 		req.method==routes[route].method
 		) {

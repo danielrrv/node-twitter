@@ -1,9 +1,9 @@
 
 import { Response, Request } from "express";
 import  User from "../Models/User";
-import Manager from "../Models/Model";
-import { Params, RedirectResponse, Results } from "../types";
-import View from "../view";
+import Manager from "../../lib/Model";
+import { Params, RedirectResponse, Results } from "../../lib/types";
+import View from "../../lib/view";
 
 
 

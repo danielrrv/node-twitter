@@ -1,14 +1,14 @@
 
-import {statement} from "../DB/connection";
-import { QueryResults, Results } from "../types";
-import { IModel, Constructor } from "../types";
+import {statement} from "./DB/mysql";
+import { QueryResults, Results } from "./types";
+import { IModel, Constructor } from "./types";
 
 
 /**
  * Class represents Relational models
  * @classdesc Manager Models.
  */
-export default class Manager<T> {
+export default class RelationalModel<T> {
 	public static Get<U>(Instance: Constructor<U>): U {
 		return new Instance();
 	}

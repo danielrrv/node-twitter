@@ -1,6 +1,6 @@
 
 
-import { Params, RedirectResponse, Results } from "../types";
+import { Params, RedirectResponse, Results } from "../../lib/types";
 import { Response, Request } from "express";
 import Profile from '../Models/Profile';
 import {error404} from '../Controllers/handler';

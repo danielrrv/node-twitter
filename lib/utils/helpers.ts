@@ -36,7 +36,7 @@ const parseParams = (routeUrl: string , requestUrl: string, params: Params={}): 
  * @param {string} url uri url from the user
  * @returns {RegExp|string} 
 */
-const convertOnRegexUrl = (url: string):RegExp | string=>{
+const convertToRegexUrl = (url: string):RegExp | string=>{
 		/*Delimiter, consider to pass it to  the args function*/
 		const delimiter = ":";
 		/*try to find  the position of the delimiter*/
@@ -48,10 +48,10 @@ const convertOnRegexUrl = (url: string):RegExp | string=>{
 			/*What it does: Replaces the param to regex of any character. (.+)matches any char.*/
 			url = url.slice(0, current) + ".+" +  url.slice(endRoute);
 			/*Keep moving!*/
-			return convertOnRegexUrl(url);
+			return convertToRegexUrl(url);
 	}else{
 		/*What it does: Replaces simple / for escape versions of them. Used as regex.*/
 		return url.slice(0, url.length).replace(new RegExp('\\/', 'g'), '\\/');
 	}
 }
-exports = module.exports={ parseParams, convertOnRegexUrl };
+exports = module.exports={ parseParams, convertToRegexUrl };

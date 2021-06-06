@@ -14,7 +14,7 @@ const view = (response: Response, file: string, options: any): RedirectResponse 
 	/*TODO: Validate that filepath exists. Thanks try catch */
 	try {
 		/*sync execution.Only use it at the end of the handler execution*/
-		const stringHtml = fs.readFileSync(path.resolve(path.join(__dirname, "..", "templates", file)), "utf-8");
+		const stringHtml = fs.readFileSync(path.resolve(path.join(__dirname, "../..", "templates", file)), "utf-8");
 		response.statusCode = 200;
 		response.setHeader('Content-Type', 'text/html');
 		/*Implementation to write template Html and put it on response*/

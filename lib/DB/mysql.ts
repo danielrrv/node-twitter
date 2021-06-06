@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 import { QueryResults, Results } from "../types";
-const AWS = require('aws-sdk');
+
 
 /*Implementation to mysql connections socket*/
 const pool = mysql.createPool({
@@ -10,14 +10,6 @@ const pool = mysql.createPool({
 	password: process.env.MYSQL_PASSWORD,
 	database: process.env.MYSQL_DATABASE
 });
-/*Implementation to DynamoDB connections*/
-AWS.config.update({
-	region: "us-east-1",
-	accessKeyId:process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
-  })
-const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-export const dynamoDBClient = new AWS.DynamoDB.DocumentClient();
 
 
 /**

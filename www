@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-
+"use strict"
 /**
  * Module dependencies.
  */
 require('dotenv').config();
-const app = require('./dist/server');
+// const app = require('./dist/lib/server');
+const app = require('./dist/src/app')
 const http = require('http');
 const HOST = '127.0.0.1';
 
@@ -24,7 +25,7 @@ const PORT = normalizePort(process.env.PORT || '3000');
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = http.createServer(app.listen);
 
 /**
  * Listen on provided port, on all network interfaces.

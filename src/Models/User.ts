@@ -1,5 +1,5 @@
-import Manager from "./Model";
-import { IModel} from "../types";
+import RelationalModel from "../../lib/Model";
+import { IModel} from "../../lib/types";
 const https = require('https');
 
 
@@ -12,7 +12,7 @@ interface IUser extends IModel{
  * @extends Manager
  * @classdesc Model points to portfolio table
  */
-export default class User extends Manager<IUser> {
+export default class User extends RelationalModel<IUser> {
 	/*Primary key of the model*/
 	protected primaryKey = "idportfolio";
 	/*Declare the table that model points to*/

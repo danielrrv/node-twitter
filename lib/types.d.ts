@@ -4,22 +4,21 @@ export declare interface Payload {
 
 }
 /*Implementation to describe Handler functions*/
-type HandlerFunc = (req: Request, res: Response, params?:Params) => Promise<RedirectResponse> | void;
+type HandlerFunc = (req: Request, res: Response, params?: Params) => Promise<RedirectResponse> | void;
 
-export declare interface IRoute {
+export declare interface IRoute  {
 	path: string;
 	handler: HandlerFunc;
-	method:string;
-	
+	method: string;
 }
 export declare interface IModel {
 	Find(id?: string): Promise<QueryResults>;
-	Where(column: string, condition: string, filter: string):Promise<QueryResults>;
+	Where(column: string, condition: string, filter: string): Promise<QueryResults>;
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export type Results = any; 
+export type Results = any;
 
 export type RedirectResponse = void | Response;
 export declare interface QueryResults {
