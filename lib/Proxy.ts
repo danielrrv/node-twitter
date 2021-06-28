@@ -23,6 +23,6 @@ export default class Proxy implements IProxy {
 
 	public handle(req: Request, res: Response) {
 		console.log(new Date());
-		return this.router.listen(req, res);
+		return this.router.handle(req, res);
 	}
 }

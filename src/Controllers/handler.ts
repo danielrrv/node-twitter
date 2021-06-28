@@ -2,7 +2,7 @@
 import { Response, Request } from "express";
 import  User from "../Models/User";
 import Manager from "../../lib/Model";
-import { Params, RedirectResponse, Results } from "../../lib/types";
+import { HandlerFunc, Params, RedirectResponse, Results } from "../../lib/types";
 import View from "../../lib/view";
 
 
@@ -14,7 +14,7 @@ import View from "../../lib/view";
  * @param {Params?} params
  * @return {Promise<RedirectResponse>}
 */
-export const index = async (request: Request, response: Response, params?: Params): Promise<RedirectResponse> => {
+export const index:HandlerFunc = async (request: Request, response: Response): Promise<RedirectResponse> => {
 	try {
 		/*Initializes a user model*/
 		const userRepository = Manager.Get<User>(User);
@@ -45,12 +45,12 @@ export const index = async (request: Request, response: Response, params?: Param
  * @returns {Promise<RedirectResponse>}
  *
 */
-export const show = async (request: Request, response: Response, params?: Params): Promise<RedirectResponse> => {
+export const show = async (request: Request, response: Response): Promise<RedirectResponse> => {
 	try {
 		/*Retrieves a User instance*/
 		const userRepository = Manager.Get(User);
 		/*Find this user*/
-		const user = await userRepository.Find(params.id);
+		const user = await userRepository.Find(request.params.id);
 		/*Response with JSON*/
 		response.statusCode = 200;
 		response.write(JSON.stringify(user));

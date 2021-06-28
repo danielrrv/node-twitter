@@ -11,28 +11,28 @@ import { IRoute } from "./types";
 const routes: IRoute[] = [
 
 	{
-		handler: show,
+		handlers: [show],
 		path: "/users",
 		method:"GET"
 	},
 	{
-		handler:getProfile,
+		handlers:[getProfile],
 		path:'/api/profiles/:id',
 		method:"GET"
 	},
 	{
-		handler:getAllProfile,
+		handlers:[ getAllProfile],
 		path:'/api/profiles',
 		method:"GET"
 	},
 	
 	{
-		handler:putProfile,
+		handlers:[putProfile],
 		path:'/api/profiles',
 		method:"POST"
 	},
 	{
-		handler: index,
+		handlers: [index],
 		path: "/",
 		method: "GET"
 	},

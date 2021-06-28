@@ -4,11 +4,11 @@ export declare interface Payload {
 
 }
 /*Implementation to describe Handler functions*/
-type HandlerFunc = (req: Request, res: Response, params?: Params) => Promise<RedirectResponse> | void;
+type HandlerFunc = (req: Request, res: Response, next?:Function ) => Promise<RedirectResponse> | void;
 
 export declare interface IRoute  {
 	path: string;
-	handler: HandlerFunc;
+	handlers: HandlerFunc[];
 	method: string;
 }
 export declare interface IModel {

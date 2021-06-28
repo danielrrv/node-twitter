@@ -1,6 +1,6 @@
 
 
-import { Params, RedirectResponse, Results } from "../../lib/types";
+import { HandlerFunc, Params, RedirectResponse, Results } from "../../lib/types";
 import { Response, Request } from "express";
 import Profile from '../Models/Profile';
 import {error404} from '../Controllers/handler';
@@ -13,7 +13,7 @@ import {error404} from '../Controllers/handler';
  * @param {Params} params
  * @returns {Promise<RedirectResponse>}
 */
-export const getAllProfile = async(request: Request, response: Response, params?: Params): Promise<RedirectResponse> =>{
+export const getAllProfile:HandlerFunc = async(request: Request, response: Response, next:Function): Promise<RedirectResponse> =>{
 	try {
 	const allProfiles = await Profile.All();
 	response.statusCode = 200;
@@ -33,10 +33,10 @@ export const getAllProfile = async(request: Request, response: Response, params?
  * @param {Params} params
  * @returns {Promise<RedirectResponse>}
 */
-export const getProfile = async( request:Request, response:Response, params?:Params ): Promise<RedirectResponse> =>{
+export const getProfile:HandlerFunc = async( request:Request, response:Response, next:Function): Promise<RedirectResponse> =>{
 	try {
-		if(params.hasOwnProperty("id")){
-			const profile= await Profile.Find(params.id);
+		if(request.params.hasOwnProperty("id")){
+			const profile= await Profile.Find(request.params.id);
 			response.setHeader("Content-Type", "application/json");
 			response.write(JSON.stringify(profile));
 			response.end();
@@ -60,7 +60,7 @@ export const getProfile = async( request:Request, response:Response, params?:Par
  * @param {Params} params
  * @returns {Promise<RedirectResponse>}
 */
-export const putProfile = async (request: Request, response: Response, params?: Params): Promise<RedirectResponse> =>{
+export const putProfile:HandlerFunc = async (request: Request, response: Response): Promise<RedirectResponse> =>{
 	try {
 	const buffer = [];
 	request.on("data", (chunk)=>{
