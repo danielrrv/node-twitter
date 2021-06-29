@@ -1,6 +1,6 @@
 
 import { Response, Request } from "express";
-import  User from "../Models/User";
+import User from "../Models/User";
 import Manager from "../../lib/Model";
 import { HandlerFunc, Params, RedirectResponse, Results } from "../../lib/types";
 import View from "../../lib/view";
@@ -14,7 +14,7 @@ import View from "../../lib/view";
  * @param {Params?} params
  * @return {Promise<RedirectResponse>}
 */
-export const index:HandlerFunc = async (request: Request, response: Response): Promise<RedirectResponse> => {
+export const index: HandlerFunc = async (request: Request, response: Response): Promise<RedirectResponse> => {
 	try {
 		/*Initializes a user model*/
 		const userRepository = Manager.Get<User>(User);
@@ -25,11 +25,11 @@ export const index:HandlerFunc = async (request: Request, response: Response): P
 		*Expensive operation. Consider async call from frontend.
 		**/
 		const users = [];
-		for (let user of rawUser){
+		for (let user of rawUser) {
 			const tweets = await User.Tweets(user.twitter_user_name);
-			users.push({...user, tweets});
+			users.push({ ...user, tweets });
 		}
-		return View(response, "index.hbs", {users});
+		return View(response, "index.hbs", { users });
 	} catch (error) {
 		/*Implementation to handle exception.*/
 		console.error(error);
@@ -67,8 +67,13 @@ export const show = async (request: Request, response: Response): Promise<Redire
  * @return 
  *
 */
-export const error404 = async (request: Request, response: Response): Promise<RedirectResponse>  => {
+export const error404 = async (request: Request, response: Response): Promise<RedirectResponse> => {
 	response.statusCode = 404;
 	response.write("Error 404. Resource Not found");
 	response.end();
 };
+
+
+export const about = async (request: Request, response: Response): Promise<RedirectResponse> => {
+	return View(response, 'about.hbs');
+}

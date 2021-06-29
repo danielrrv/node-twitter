@@ -10,7 +10,7 @@ import { RedirectResponse } from "./types";
  * @param {Response} response used to notify Node Web server that requests ends.
  * @param {file} file filepath
 */
-const view = (response: Response, file: string, options: any): RedirectResponse => {
+const view = (response: Response, file: string, options?: any): RedirectResponse => {
 	/*TODO: Validate that filepath exists. Thanks try catch */
 	try {
 		/*sync execution.Only use it at the end of the handler execution*/

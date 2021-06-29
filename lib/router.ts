@@ -20,6 +20,8 @@ export default class Router {
 			.test(url.parse(req.url, true).pathname) &&
 			req.method == this.routes[route].method
 		) {
+			//Implementation to avoid static files match the root route /. TODO: Move to a function. validRoute?(pathname);
+			if(this.routes[route].path=='/' && Array.from(url.parse(req.url, true).pathname).length > '/'.length) return error404(req, res);
 			/*Implementation to capture query strings*/
 			const queryStrings = url.parse(req.url, true).query;
 			Object.assign(params, queryStrings);
