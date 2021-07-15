@@ -1,4 +1,5 @@
 {
+	
 	"compilerOptions": {
 		"outDir": "dist",
 		"lib": ["es6", "dom"],
@@ -9,6 +10,6 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"sourceMap": true
-		
-	}
+	},
+	"exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 /*Implementation to DynamoDB connections*/
 AWS.config.update({
 	region: "us-east-1",

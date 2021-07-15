@@ -11,7 +11,7 @@
         "ordered-imports":false,
         "curly":false,
         "member-ordering":false,
-        "no-unused-variable":true,
+        "no-unused-variable":true
     },
     "rulesDirectory": []
 }

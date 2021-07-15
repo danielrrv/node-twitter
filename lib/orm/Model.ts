@@ -1,20 +1,20 @@
 
-import {statement} from "./DB/mysql";
-import { QueryResults, Results } from "./types";
-import { IModel, Constructor } from "./types";
+import {statement} from "./mysql";
+import { QueryResults, Results } from "../types";
+import { IModel, Constructor } from "../types";
 
 
 /**
  * Class represents Relational models
  * @classdesc Manager Models.
  */
-export default class RelationalModel<T> {
+export class RelationalModel<T> {
 	public static Get<U>(Instance: Constructor<U>): U {
 		return new Instance();
 	}
 	/*What it does: States the primary key of the table*/
 	protected primaryKey = "id";
-	/*What it does: Represents model's table*/
+	/*What it does: Represents model"s table*/
 	protected tableName = "myTable";
 	/**
 	 * Finds a model instance by primaryKey. If not id returns all records

@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
 import { QueryResults, Results } from "../types";
 
 

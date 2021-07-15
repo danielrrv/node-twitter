@@ -1,23 +1,21 @@
-import RelationalModel from "../../lib/Model";
-import { IModel} from "../../lib/types";
-const https = require('https');
+import { RelationalModel as Manager } from "../../lib/index";
+import { IModel } from "../../lib/index";
+import * as https from "https";
 
-
-
-interface IUser extends IModel{
-	Tweets(): Promise<any>;
+interface IUser extends IModel {
+	Tweets(): Promise<void>;
 }
 /**
  * Class represents User
  * @extends Manager
  * @classdesc Model points to portfolio table
  */
-export default class User extends RelationalModel<IUser> {
+export default class User extends Manager<IUser> {
 	/*Primary key of the model*/
 	protected primaryKey = "idportfolio";
 	/*Declare the table that model points to*/
 	protected tableName = "portfolio";
-	 /** @constructs */
+	/** @constructs */
 	public constructor() {
 		super();
 	}
@@ -26,16 +24,16 @@ export default class User extends RelationalModel<IUser> {
 	 * @param {string} userName twitter_username.
 	 * @returns Promise<any>
 	*/
-	public static Tweets(userName:string):Promise<any>{
+	public static Tweets(userName: string): Promise<any> {
 		/*API V2*/
 		const options = {
 			hostname: "api.twitter.com",
 			port: 443,
-			path:  "/2/tweets/search/recent?query=from:"+ userName,
+			path: "/2/tweets/search/recent?query=from:" + encodeURI(userName),
 			method: "GET",
-			headers:{
+			headers: {
 				/*Basic Bearer Token*/
-				Authorization:`Bearer ${process.env.TWITTER_BEARER_TOKEN}`
+				Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`
 			}
 		}
 		return new Promise((resolve) => {

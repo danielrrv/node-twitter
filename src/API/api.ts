@@ -1,18 +1,14 @@
-
-
 import { HandlerFunc, Params, RedirectResponse, Results } from "../../lib/types";
 import { Response, Request } from "express";
-import Profile from '../Models/Profile';
-import {error404} from '../Controllers/handler';
-
-
+import Profile from "../Models/Profile";
+import {error404} from "../Controllers/handler";
 /**
  * Gets all profiles available on dynamoDB
  * @param {Request} request
  * @param {Response} response
  * @param {Params} params
  * @returns {Promise<RedirectResponse>}
-*/
+ */
 export const getAllProfile:HandlerFunc = async(request: Request, response: Response, next:Function): Promise<RedirectResponse> =>{
 	try {
 	const allProfiles = await Profile.All();
@@ -54,7 +50,7 @@ export const getProfile:HandlerFunc = async( request:Request, response:Response,
 }
 
 /**
- * Creates item on the DynamoDB's document
+ * Creates item on the DynamoDB"s document
  * @param {Request} request
  * @param {Response} response
  * @param {Params} params

@@ -1,5 +1,5 @@
 
-import { dynamoDBClient} from "../../lib/DB/dynamo";
+import { dynamoDBClient} from "../../lib/orm/dynamo";
 
 
 export default class Profile {

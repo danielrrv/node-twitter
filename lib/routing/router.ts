@@ -1,13 +1,14 @@
 
 "use strict"
-import { HandlerFunc, IRoute, Params } from "./types";
+import { HandlerFunc, IRoute, Params } from "../types";
 import { Response, Request, request, response } from "express";
-import { error404 } from "../src/Controllers/handler";
-const helpers = require('./utils/helpers')
-const url = require('url');
+import { error404 } from "../../src/Controllers/handler";
+import { convertToRegexUrl,parseParams } from "../index";
+import * as url from "url";
 
 
-export default class Router {
+
+export class Router {
 	private routes?: IRoute[] = [];
 
 	public constructor() {
@@ -15,18 +16,18 @@ export default class Router {
 	}
 	public handle(req: Request, res: Response, params: Params = {}, route = 0) {
 
-		/*Case #1: Request's url matches with route and method at position  stated by route on routes array*/
-		if (new RegExp(helpers.convertToRegexUrl(this.routes[route].path))
+		/*Case #1: Request"s url matches with route and method at position  stated by route on routes array*/
+		if (new RegExp(convertToRegexUrl(this.routes[route].path))
 			.test(url.parse(req.url, true).pathname) &&
 			req.method == this.routes[route].method
 		) {
 			//Implementation to avoid static files match the root route /. TODO: Move to a function. validRoute?(pathname);
-			if(this.routes[route].path=='/' && Array.from(url.parse(req.url, true).pathname).length > '/'.length) return error404(req, res);
+			if(this.routes[route].path=="/" && Array.from(url.parse(req.url, true).pathname).length > "/".length) return error404(req, res);
 			/*Implementation to capture query strings*/
 			const queryStrings = url.parse(req.url, true).query;
 			Object.assign(params, queryStrings);
 			/*Implementation to parse params*/
-			Object.assign(params, helpers.parseParams(this.routes[route].path, req.url));
+			Object.assign(params, parseParams(this.routes[route].path, req.url));
 			/*See you in future ticks->*/
 			req.params = params;
 			return this.ExecuteMiddleware(req, res, this.routes[route])
