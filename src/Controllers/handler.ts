@@ -1,11 +1,9 @@
 
 import { Response, Request } from "express";
 import User from "../Models/User";
-import Manager from "../../lib/Model";
+import {RelationalModel as Manager} from "../../lib/index";
 import { HandlerFunc, Params, RedirectResponse, Results } from "../../lib/types";
-import View from "../../lib/view";
-
-
+import { view } from "../../lib/index";
 
 /**
  * Handles index request on "/"
@@ -13,7 +11,7 @@ import View from "../../lib/view";
  * @param {Response} response
  * @param {Params?} params
  * @return {Promise<RedirectResponse>}
-*/
+ */
 export const index: HandlerFunc = async (request: Request, response: Response): Promise<RedirectResponse> => {
 	try {
 		/*Initializes a user model*/
@@ -25,11 +23,11 @@ export const index: HandlerFunc = async (request: Request, response: Response): 
 		*Expensive operation. Consider async call from frontend.
 		**/
 		const users = [];
-		for (let user of rawUser) {
+		for (const user of rawUser) {
 			const tweets = await User.Tweets(user.twitter_user_name);
 			users.push({ ...user, tweets });
 		}
-		return View(response, "index.hbs", { users });
+		return view(response, "index.hbs", { users });
 	} catch (error) {
 		/*Implementation to handle exception.*/
 		console.error(error);
@@ -75,5 +73,5 @@ export const error404 = async (request: Request, response: Response): Promise<Re
 
 
 export const about = async (request: Request, response: Response): Promise<RedirectResponse> => {
-	return View(response, 'about.hbs');
+	return view(response, "about.hbs");
 }
